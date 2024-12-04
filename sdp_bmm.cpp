@@ -186,7 +186,7 @@ int main() {
     int num_procs = omp_get_num_procs();
     cout << "Number of processor cores: " << num_procs << endl;
 
-    omp_set_num_threads(4);
+    omp_set_num_threads(8);
 
 
 
