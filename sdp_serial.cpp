@@ -154,12 +154,12 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
     // cout << &output[63][10][63][63] << " " << &output[63][11][0][0] << "\n";
     // cout << &output[62][11][63][63] << " " << &output[63][0][0][0] << "\n";
     
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            cout << output[5][5][i][j] << " ";
-        }
-        cout << "\n";
-    }
+    // for(int i = 0; i < 8; i++) {
+    //     for(int j = 0; j < 8; j++) {
+    //         cout << output[5][5][i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
 
     // cout << "Attention weights mm value end" << endl;
     // Free allocated memory

@@ -130,12 +130,12 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
     matrix_multiply(attn_weight, value, output, batch_size, num_heads, L, D, S);
 
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            cout << output[5][5][i][j] << " ";
-        }
-        cout << "\n";
-    }
+    // for(int i = 0; i < 8; i++) {
+    //     for(int j = 0; j < 8; j++) {
+    //         cout << output[5][5][i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
 
     for (int b = 0; b < batch_size; ++b) {
         for (int h = 0; h < num_heads; ++h) {
@@ -161,6 +161,7 @@ int main(int argc, char *argv[]){
     cout << "Number of processor cores: " << num_procs << endl;
 
     omp_set_num_threads(num_thread);
+    cout << "Number of threads: " << num_thread << endl;
 
     int batch_size = 64;
     int num_heads = 12;
