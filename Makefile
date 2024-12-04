@@ -1,55 +1,56 @@
-# Makefile for compiling and running sdp_serial.cpp
-
 # Compiler
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -Wall -O2
+CXXFLAGS = -Wall -O2 -fopenmp
 
-# Target executable
-TARGET = sdp_serial
+# Target executables
+TARGETS = sdp_serial sdp_mm_parallel sdp_bmm sdp_online_softmax sdp_fused
 
-# Source file
-SRC = sdp_serial.cpp
+# Source files
+SRC_SERIAL = sdp_serial.cpp
+SRC_MM_PARALLEL = sdp_mm_parallel.cpp
+SRC_BMM = sdp_bmm.cpp
+SRC_ONLINE_SOFTMAX = sdp_online_softmax.cpp
+SRC_FUSED = sdp_fused.cpp
 
-# Default target
-all: $(TARGET) run
+# Default target: compile all executables
+all: $(TARGETS)
 
-# Compile the source file into an executable
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+# Rules for compiling each target
+sdp_serial: $(SRC_SERIAL)
+	$(CXX) $(CXXFLAGS) -o sdp_serial $(SRC_SERIAL)
 
-# Run the executable
-run: $(TARGET)
-	./$(TARGET)
+sdp_mm_parallel: $(SRC_MM_PARALLEL)
+	$(CXX) $(CXXFLAGS) -o sdp_mm_parallel $(SRC_MM_PARALLEL)
 
-# Compile and run sdp_mm_parallel.cpp
-parallel: sdp_mm_parallel
+sdp_bmm: $(SRC_BMM)
+	$(CXX) $(CXXFLAGS) -o sdp_bmm $(SRC_BMM)
 
-sdp_mm_parallel: sdp_mm_parallel.cpp
-	$(CXX) $(CXXFLAGS) -fopenmp -o sdp_mm_parallel sdp_mm_parallel.cpp
+sdp_online_softmax: $(SRC_ONLINE_SOFTMAX)
+	$(CXX) $(CXXFLAGS) -o sdp_online_softmax $(SRC_ONLINE_SOFTMAX)
+
+sdp_fused: $(SRC_FUSED)
+	$(CXX) $(CXXFLAGS) -o sdp_fused $(SRC_FUSED)
+
+# Run individual executables
+run_serial: sdp_serial
+	./sdp_serial
 
 run_parallel: sdp_mm_parallel
 	./sdp_mm_parallel
 
-bmm: sdp_bmm
-
-sdp_bmm: sdp_bmm.cpp
-	$(CXX) $(CXXFLAGS) -fopenmp -o sdp_bmm sdp_bmm.cpp
-
 run_bmm: sdp_bmm
 	./sdp_bmm
 
-sdp_online_softmax: sdp_online_softmax.cpp
-	$(CXX) $(CXXFLAGS) -fopenmp -o sdp_online_softmax sdp_online_softmax.cpp
+run_online_softmax: sdp_online_softmax
 	./sdp_online_softmax
 
-sdp_fused: sdp_fused.cpp
-	$(CXX) $(CXXFLAGS) -fopenmp -o sdp_fused sdp_fused.cpp
+run_fused: sdp_fused
 	./sdp_fused
 
 # Clean up the build files
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGETS)
 
-.PHONY: all run clean
+.PHONY: all clean

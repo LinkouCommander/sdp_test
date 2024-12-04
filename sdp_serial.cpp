@@ -151,7 +151,7 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
     for(int i = 0; i < 8; i++) {
         for(int j = 0; j < 8; j++) {
-            cout << output[0][0][i][j] << " ";
+            cout << output[5][5][i][j] << " ";
         }
         cout << "\n";
     }
