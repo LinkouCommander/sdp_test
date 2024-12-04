@@ -33,6 +33,9 @@ sdp_online_softmax: $(SRC_ONLINE_SOFTMAX)
 sdp_fused: $(SRC_FUSED)
 	$(CXX) $(CXXFLAGS) -o sdp_fused $(SRC_FUSED)
 
+
+run: run_serial run_parallel run_bmm run_online_softmax run_fused
+
 # Run individual executables
 run_serial: sdp_serial
 	./sdp_serial
