@@ -149,8 +149,8 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
     matrix_multiply(attn_weight, value, output, batch_size, num_heads, L, D, S);
 
-    cout << &output[63][11][63][62] << " " << &output[63][11][63][63] << "\n";
-    cout << &output[63][11][62][63] << " " << &output[63][11][63][0] << "\n";
+    cout << &output[63][11][63][61] << " " << &output[63][11][63][62] << " " << &output[63][11][63][63] << "\n";
+    cout << &output[63][11][62][62] << " " << &output[63][11][62][63] << " " << &output[63][11][63][0] << "\n";
     cout << &output[63][10][63][63] << " " << &output[63][11][0][0] << "\n";
     cout << &output[62][11][63][63] << " " << &output[63][0][0][0] << "\n";
     
