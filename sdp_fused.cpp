@@ -154,14 +154,13 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
 }
 
-int main() {
+int main(int argc, char *argv[]){
+	int num_thread = atoi(argv[1]);
 
     int num_procs = omp_get_num_procs();
     cout << "Number of processor cores: " << num_procs << endl;
 
-    omp_set_num_threads(4);
-
-
+    omp_set_num_threads(num_thread);
 
     int batch_size = 64;
     int num_heads = 12;

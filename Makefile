@@ -34,6 +34,8 @@ sdp_fused: $(SRC_FUSED)
 	$(CXX) $(CXXFLAGS) -o sdp_fused $(SRC_FUSED)
 
 
+NT = 4
+
 run: run_serial run_parallel run_bmm run_online_softmax run_fused
 
 # Run individual executables
@@ -41,16 +43,16 @@ run_serial: sdp_serial
 	./sdp_serial
 
 run_parallel: sdp_mm_parallel
-	./sdp_mm_parallel
+	./sdp_mm_parallel $(NT)
 
 run_bmm: sdp_bmm
-	./sdp_bmm
+	./sdp_bmm $(NT)
 
 run_online_softmax: sdp_online_softmax
-	./sdp_online_softmax
+	./sdp_online_softmax $(NT)
 
 run_fused: sdp_fused
-	./sdp_fused
+	./sdp_fused $(NT)
 
 # Clean up the build files
 clean:
