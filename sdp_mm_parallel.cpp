@@ -115,8 +115,8 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
     transpose(key, key_transposed, batch_size, num_heads, L, D);
 
-    // matrix_multiply(query, key_transposed, attn_weight, batch_size, num_heads, L, S, D);
-    matrix_multiply_T(query, key, attn_weight, batch_size, num_heads, L, S, D);
+    matrix_multiply(query, key_transposed, attn_weight, batch_size, num_heads, L, S, D);
+    // matrix_multiply_T(query, key, attn_weight, batch_size, num_heads, L, S, D);
 
 
     #pragma omp parallel for collapse(4)
