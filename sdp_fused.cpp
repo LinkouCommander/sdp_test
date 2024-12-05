@@ -178,8 +178,8 @@ int main(int argc, char *argv[]){
 
     int batch_size = 64;
     int num_heads = 12;
-    int L = 256;
-    int S = 256;
+    int L = 64;
+    int S = 64;
     int D = 1024;
 
     float**** query = new float***[batch_size];
