@@ -99,7 +99,6 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
         }
     }
 
-
     #pragma omp parallel for collapse(3)
     for (int b = 0; b < batch_size; ++b) {
         for (int h = 0; h < num_heads; ++h) {
