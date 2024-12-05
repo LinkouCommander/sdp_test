@@ -202,7 +202,7 @@ int main(int argc, char *argv[]){
     int num_heads = 12;
     int L = 64;
     int S = 64;
-    int D = 1024;
+    int D = 2048;
 
     float**** query = new float***[batch_size];
     float**** key = new float***[batch_size];
