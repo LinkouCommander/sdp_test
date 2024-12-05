@@ -25,7 +25,7 @@ void transpose(float**** matrix, float**** matrix_transposed, int batch_size, in
 }
 
 void matrix_multiply(float**** A, float**** B, float**** C, int batch_size, int num_heads, int rows, int cols, int inner_dim) {
-    int block_size = 8; // You can adjust the block size for better performance
+    int block_size = 32; // You can adjust the block size for better performance
 
     #pragma omp parallel for collapse(4)
     for (int b = 0; b < batch_size; ++b) {
