@@ -129,12 +129,12 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
     matrix_multiply(attn_weight, value, output, batch_size, num_heads, L, D, S);
 
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            cout << output[5][5][i][j] << " ";
-        }
-        cout << "\n";
-    }
+    // for(int i = 0; i < 8; i++) {
+    //     for(int j = 0; j < 8; j++) {
+    //         cout << output[5][5][i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
 
     // #pragma omp parallel for collapse(4)
     // for (int b = 0; b < batch_size; ++b) {
