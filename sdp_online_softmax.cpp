@@ -99,22 +99,6 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
         }
     }
 
-    float**** key_transposed = new float***[batch_size];
-    for (int b = 0; b < batch_size; ++b) {
-        key_transposed[b] = new float**[num_heads];
-        for (int h = 0; h < num_heads; ++h) {
-            key_transposed[b][h] = new float*[D];
-            for (int i = 0; i < D; ++i) {
-                key_transposed[b][h][i] = new float[L];
-                for (int j = 0; j < L; ++j) {
-                    key_transposed[b][h][i][j] = 0.0;
-                }
-            }
-        }
-    }
-
-    transpose(key, key_transposed, batch_size, num_heads, L, D);
-
     // matrix_multiply(query, key_transposed, attn_weight, batch_size, num_heads, L, S, D);
     matrix_multiply_T(query, key, attn_weight, batch_size, num_heads, L, S, D);
 
@@ -147,7 +131,7 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
                     pre_max = max_val;
                 }
                 for (int j = 0; j < S; ++j) {
-                    attn_weight[b][h][i][j] /= sum;
+                    attn_weight[b][h][i][j] = exp(attn_weight[b][h][i][j] - max_val)/ sum;
                 }
             }
         }
@@ -155,12 +139,12 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
 
     matrix_multiply(attn_weight, value, output, batch_size, num_heads, L, D, S);
 
-    // for(int i = 0; i < 8; i++) {
-    //     for(int j = 0; j < 8; j++) {
-    //         cout << output[5][5][i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+            cout << output[5][5][i][j] << " ";
+        }
+        cout << "\n";
+    }
 
     for (int b = 0; b < batch_size; ++b) {
         for (int h = 0; h < num_heads; ++h) {
@@ -176,17 +160,6 @@ void scaled_dot_product_attention(float**** query, float**** key, float**** valu
     }
     delete[] attn_bias;
     delete[] attn_weight;
-
-    for (int b = 0; b < batch_size; ++b) {
-        for (int h = 0; h < num_heads; ++h) {
-            for (int i = 0; i < S; ++i) {
-                delete[] key_transposed[b][h][i];
-            }
-            delete[] key_transposed[b][h];
-        }
-        delete[] key_transposed[b];
-    }
-    delete[] key_transposed;
 }
 
 int main(int argc, char *argv[]){
